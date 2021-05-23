@@ -13,13 +13,17 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         Height="600" Width="450"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/openAccountIcon.png" 
-       
-        >
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Icon="/open.png"
+    >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
         <StackPanel
-            Margin="10">
-            
+            Margin="10,10,10,10">
+
 
             <!-- TexBox MaterialDesign -->
             <TextBox x:Name="txtbFirstName"                
