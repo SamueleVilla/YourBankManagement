@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using Microsoft.Win32;
+using BankAccounts.Utils;
 
 namespace WindowsUI
 {
@@ -39,9 +41,11 @@ namespace WindowsUI
                 // istanza dell utente corrente
                 var currentUser = new User(userName, birthDate, taxCode);
                 var currentAccount = new BankAccount(currentUser, initialBalance);
+                
 
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                // salvataggio dei dati utente inseriti
+                Database.SetAccount(currentAccount);
+                MessageBox.Show("Dati salvati correnttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             catch (Exception ex)

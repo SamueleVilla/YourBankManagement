@@ -27,7 +27,7 @@ namespace BankAccounts
 
         // properties
         public User Owner { get => _owner; private set => _owner = value; }
-        public string AccountNumber { get => _accountNumber; }
+        public string AccountNumber { get => _accountNumber; set => _accountNumber = value; }
         public decimal Balance { get => _balance; }
 
 
@@ -44,7 +44,7 @@ namespace BankAccounts
 
         public virtual string ToFileFormat()
         {
-            return string.Format($"{Owner.ToFileFormat()},{AccountNumber},{Balance}");
+            return string.Format($"{Owner.ToFileFormat()};{AccountNumber};{Balance}");
         }
 
         public override string ToString()
