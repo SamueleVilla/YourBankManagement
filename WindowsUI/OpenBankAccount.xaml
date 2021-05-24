@@ -14,8 +14,12 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         Height="600" Width="450"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+<<<<<<< HEAD
         Icon="/open.png" 
         
+=======
+        Icon="/open.png"
+>>>>>>> 8987e6cc8552b53af4c43e9efce37eca2d0f9d8f
     >
     <Grid>
         <Grid.ColumnDefinitions>
