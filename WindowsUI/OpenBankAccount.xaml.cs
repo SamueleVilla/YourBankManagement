@@ -22,14 +22,14 @@ namespace WindowsUI
     /// </summary>
     public partial class OpenBankAccount : Window
     {
-
+        private static MainWindow mainWindow = new MainWindow();
 
         public OpenBankAccount()
         {
             InitializeComponent();
         }
 
-        private void btnOpenAccount_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenAccount_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -46,7 +46,10 @@ namespace WindowsUI
                 // salvataggio dei dati utente inseriti
                 Database.SetAccount(currentAccount);
                 MessageBox.Show("Dati salvati correnttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+
+                Database.CurrentAccount = currentAccount;
+                mainWindow.Activate();                
+                this.Close();             
             }
             catch (Exception ex)
             {

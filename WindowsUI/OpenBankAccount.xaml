@@ -14,13 +14,9 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         Height="600" Width="450"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-<<<<<<< HEAD
-        Icon="/open.png" 
-        
-=======
-        Icon="/open.png"
->>>>>>> 8987e6cc8552b53af4c43e9efce37eca2d0f9d8f
-    >
+        Icon="/open.png"    
+        >
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -94,7 +90,7 @@
             Margin="20,40,20,0"
             Content="Apri conto bancario"
             Cursor="Hand"
-            Click="btnOpenAccount_Click"
+            Click="BtnOpenAccount_Click"
             >
 
             </Button>

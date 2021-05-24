@@ -1,5 +1,6 @@
 ﻿using BankAccounts;
 using BankAccounts.Utils;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,32 +24,78 @@ namespace WindowsUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static BankAccount currentAccount;
+        // istanza della finestra {openBankAccount}
+        private static OpenBankAccount openBankAccount = new OpenBankAccount();
 
+        //costruttore della classe 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void btnOpenAccount_Click(object sender, RoutedEventArgs e)
+        // evento click bottone 
+        private void BtnOpenAccount_Click(object sender, RoutedEventArgs e)
         {
-            new OpenBankAccount().Show();
+            openBankAccount.Show();
             this.IsEnabled = false;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // acquisizione dati account
-            if (Directory.Exists(Database.AccountsPath))
+            // se la directory non esiste
+            if (!Directory.Exists(Database.AccountsPath))
             {
-                var accounts = Directory.GetFiles(Database.AccountsPath);
-                currentAccount = Database.GetAccount(accounts[0]);
+                // creazione della directory
+                Directory.CreateDirectory(Database.AccountsPath);
+            }
+            // se la directory non esiste
+            if (!Directory.Exists(Database.LastOpenedPath))
+            {
+                Directory.CreateDirectory(Database.LastOpenedPath);
+                File.CreateText(Database.LastOpenedFilePath).Close();
             }
 
-            // set all things here
-            txtbFullName.Text = currentAccount.Owner.FullName;
-            txtbTaxCode.Text = currentAccount.Owner.TaxCode;
-            txtbBirthDate.Text = currentAccount.Owner.BirthDate.Value.ToString("dd/MM/yyyy");
+            try
+            {
+                LoadLastOpenedAccount();
+                SetAccountData();
+            }
+            catch (FileLoadException)
+            {
+                // il file è vuoto nessun ultimo account aperto 
+                // Creazione nuvo account
+                openBankAccount.Show();
+            }
+        }
+
+        
+        // evento che si verifica dopo la chiusura dell'applicazione
+        private void closing_Closed(object sender, EventArgs e)
+        {
+            // salvare ultimo account utilizzato nel file temp
+            File.WriteAllText($@"{Database.LastOpenedFilePath}"
+                ,Database.CurrentAccount.AccountNumber);
+        }
+
+        private void LoadLastOpenedAccount()
+        {
+            // lettura dal file l'indetificativo dell'ultimo account aperto {Number}
+            var lastAccountNumber = File.ReadAllText($"{Database.LastOpenedFilePath}");
+            if (string.IsNullOrEmpty(lastAccountNumber))
+            {
+                throw new FileLoadException(); // nel caso il file fosse vuoto
+            }
+            else
+            {
+                Database.CurrentAccount = Database.GetAccount($@"{Database.AccountsPath}\{lastAccountNumber}.csv");
+            }          
+        }
+
+        private void SetAccountData()
+        {
+            txtbBirthDate.Text = Database.CurrentAccount.Owner.BirthDate.Value.ToString("dd/MM/yyyy");
+            txtbFullName.Text = Database.CurrentAccount.Owner.FullName;
+            txtbTaxCode.Text = Database.CurrentAccount.Owner.TaxCode;
         }
     }
 }

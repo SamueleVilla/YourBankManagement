@@ -26,9 +26,9 @@ namespace BankAccounts
         public BankAccount() { }
 
         // properties
-        public User Owner { get => _owner; private set => _owner = value; }
+        public User Owner { get => _owner;  set => _owner = value; }
         public string AccountNumber { get => _accountNumber; set => _accountNumber = value; }
-        public decimal Balance { get => _balance; }
+        public decimal Balance { get => _balance; set => _balance = value; }
 
 
         // methods 

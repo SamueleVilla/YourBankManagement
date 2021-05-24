@@ -9,17 +9,29 @@ namespace BankAccounts.Utils
 {
     public class Database
     {
+        // account aperto condiviso da tutte le classi
+        public static BankAccount CurrentAccount { get; set; } = null;
+
+        // path C:\Users\Documents\Bankmanagemet\Accounts
         public static string AccountsPath { get; } = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Accounts");
 
+        // filePath C:\Users\Documents\Bankmanagemet\Temp\lasOpenedAccount.txt
+        public static string LastOpenedFilePath { get; set; } = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Temp","lastOpenedAccount.txt");
+
+        // path C:\Users\Documents\Bankmanagemet\Temp
+        public static string LastOpenedPath { get; set; } = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Temp");
+
+        // salva account sul file
         public static void SetAccount(BankAccount bankAccount)
         {
-            using(StreamWriter sw = File.CreateText($@"{AccountsPath}\{bankAccount.AccountNumber}.csv"))
-            {
-                sw.WriteLine(bankAccount.ToFileFormat());               
-            }          
+            using StreamWriter sw = File.CreateText($@"{AccountsPath}\{bankAccount.AccountNumber}.csv");
+            sw.WriteLine(bankAccount.ToFileFormat());
         }
 
+        // carica account dal file
         public static BankAccount GetAccount(string path)
         {
             string header = new StreamReader(path).ReadLine();
@@ -33,6 +45,7 @@ namespace BankAccounts.Utils
                     entries[3]),
                 decimal.Parse(entries[5]));
             account.AccountNumber = entries[4];
+
 
             return account;                
         }

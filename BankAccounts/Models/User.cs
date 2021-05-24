@@ -41,7 +41,7 @@ namespace BankAccounts.Models
 
         // properties
         public string FullName { get => string.Format($"{_fullName.FirstName} {_fullName.LastName}"); }
-        public DateTime? BirthDate { get => _birthDate; set => _birthDate = value; }
+        public DateTime? BirthDate { get => _birthDate; }
         public string TaxCode { get => _taxCode; }
 
         public BankAccount BankAccount
@@ -59,7 +59,7 @@ namespace BankAccounts.Models
 
         public string ToFileFormat()
         {
-            return string.Format($"{_fullName.FirstName};{_fullName.LastName};{_birthDate.Value.ToString("dd/MM/yyyy")};{TaxCode}");
+            return string.Format($"{_fullName.FirstName};{_fullName.LastName};{_birthDate.Value:dd/MM/yyyy};{TaxCode}");
         }
 
     }
