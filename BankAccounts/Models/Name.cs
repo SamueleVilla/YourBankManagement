@@ -1,4 +1,4 @@
-﻿namespace BankAccounts.Models
+﻿namespace BankLibrary.Models
 {
     public struct Name
     {
@@ -7,13 +7,7 @@
 
         public string FirstName { get => _firstName; set => _firstName = value; }
         public string LastName { get => _lastName; set => _lastName = value; }
+        public string FullName { get => $"{_firstName} {_lastName}"; }
 
-        public User User
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

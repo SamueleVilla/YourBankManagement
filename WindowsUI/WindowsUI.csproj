@@ -7,16 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bankmanagement.json" />
     <None Remove="open.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="bankmanagement.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.Firestore" Version="2.4.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankAccounts\BankAccounts.csproj" />
+    <ProjectReference Include="..\BankAccounts\BankLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

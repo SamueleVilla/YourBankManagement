@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankAccounts", "BankAccounts\BankAccounts.csproj", "{136F3ABC-B26D-4F8C-BD59-986A670C7358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLibrary", "BankAccounts\BankLibrary.csproj", "{136F3ABC-B26D-4F8C-BD59-986A670C7358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{6D9FDBD5-EFA1-41DA-872A-C6B4B81941FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{6D9FDBD5-EFA1-41DA-872A-C6B4B81941FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUI", "WindowsUI\WindowsUI.csproj", "{A90D908A-EA82-4853-B785-4840F1447D8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsUI", "WindowsUI\WindowsUI.csproj", "{A90D908A-EA82-4853-B785-4840F1447D8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

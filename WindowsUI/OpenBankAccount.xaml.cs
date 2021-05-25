@@ -1,5 +1,5 @@
-﻿using BankAccounts.Models;
-using BankAccounts;
+﻿using BankLibrary.Models;
+using BankLibrary;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
-using BankAccounts.Utils;
+using BankLibrary.Accounts;
 
 namespace WindowsUI
 {
@@ -29,42 +29,45 @@ namespace WindowsUI
             InitializeComponent();
         }
 
-        private void BtnOpenAccount_Click(object sender, RoutedEventArgs e)
+        // creazione instanza dell'account account 
+        private void CreateNewAccount()
         {
             try
             {
-                Name userName = new Name() { FirstName = txtbFirstName.Text, LastName = txtbLastName.Text };
-                string taxCode = txtbTaxCode.Text;
-                DateTime? birthDate = datePicker.SelectedDate;
-                decimal initialBalance = decimal.Parse(txtbInitialBalance.Text);
+                var userName = new Name() { FirstName = txtbFirstName.Text, LastName = txtbLastName.Text };
+                var taxCode = txtbTaxCode.Text;
+                var birthDate = (DateTime)datePicker.SelectedDate;
+                var initialBalance = decimal.Parse(txtbInitialBalance.Text);
                 var currentUser = new User(userName, birthDate, taxCode);
 
-                if ((bool)bankAccount.IsChecked) 
+                if ((bool)bankAccount.IsChecked)
                 {
                     // tipo account conto corrente
-                    Database.CurrentAccount = new BankAccount(currentUser, initialBalance);
-                    Database.CurrentAccount.SaveData();
+
                 }
-                else if((bool)lineOfCreditCard.IsChecked)
+                else if ((bool)lineOfCreditCard.IsChecked)
                 {
-                    Database.CurrentAccount = new LineOfCreditCard(currentUser, initialBalance);
-                    Database.CurrentAccount.SaveData();
+
                 }
-
-                // salvataggio dei dati utente inseriti
-                MessageBox.Show("Dati salvati correnttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // inizio sequenza chiusa app
-                mainWindow.Close();
-                mainWindow = new MainWindow();
-                mainWindow.Show();
-                this.Close();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void BtnOpenAccount_Click(object sender, RoutedEventArgs e)
+        {
+
+            CreateNewAccount();
+            // salvataggio dei dati utente inseriti
+            MessageBox.Show("Dati salvati correnttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
+
+             // inizio sequenza chiusa app
+             mainWindow.Close();
+             mainWindow = new MainWindow();
+             mainWindow.Show();
+             this.Close();        
         }
 
         private void Window_Closed(object sender, EventArgs e)

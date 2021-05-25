@@ -1,21 +1,6 @@
-﻿using BankAccounts;
-using BankAccounts.Utils;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Google.Cloud.Firestore;
 
 namespace WindowsUI
 {
@@ -33,6 +18,17 @@ namespace WindowsUI
             InitializeComponent();
         }
 
+        // stabilimento della connessione al database
+        private void ConnectToFireBaseFireStore()
+        {
+            var path = AppDomain.CurrentDomain.BaseDirectory + "bankmanagement.json";
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
+
+            // connessione al database cloud di google
+            FirestoreDb db = FirestoreDb.Create("bankmanagement-b4f21");
+            MessageBox.Show($"Connessione riuscita: {db.ProjectId}","Message",MessageBoxButton.OK);
+        }
+
         // evento click bottone 
         private void BtnOpenAccount_Click(object sender, RoutedEventArgs e)
         {
@@ -42,60 +38,16 @@ namespace WindowsUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // se la directory non esiste
-            if (!Directory.Exists(Database.AccountsPath))
-            {
-                // creazione della directory
-                Directory.CreateDirectory(Database.AccountsPath);
-            }
-            // se la directory non esiste
-            if (!Directory.Exists(Database.LastOpenedPath))
-            {
-                Directory.CreateDirectory(Database.LastOpenedPath);
-                File.CreateText(Database.LastOpenedFilePath).Close();
-            }
-
-            try
-            {
-                LoadLastOpenedAccount();
-                SetAccountData();
-            }
-            catch (FileLoadException)
-            {
-                // il file è vuoto nessun ultimo account aperto 
-                // Creazione nuvo account
-                openBankAccount.Show();
-            }
+            ConnectToFireBaseFireStore();
         }
 
-        
+
         // evento che si verifica dopo la chiusura dell'applicazione
         private void closing_Closed(object sender, EventArgs e)
         {
-            // salvare ultimo account utilizzato nel file temp
-            File.WriteAllText($@"{Database.LastOpenedFilePath}"
-                ,Database.CurrentAccount.AccountNumber);
+           
         }
 
-        private void LoadLastOpenedAccount()
-        {
-            // lettura dal file l'indetificativo dell'ultimo account aperto {Number}
-            var lastAccountNumber = File.ReadAllText($"{Database.LastOpenedFilePath}");
-            if (string.IsNullOrEmpty(lastAccountNumber))
-            {
-                throw new FileLoadException(); // nel caso il file fosse vuoto
-            }
-            else
-            {
-                Database.CurrentAccount = Database.GetAccount($@"{Database.AccountsPath}\{lastAccountNumber}.csv");
-            }          
-        }
-
-        private void SetAccountData()
-        {
-            txtbBirthDate.Text = Database.CurrentAccount.Owner.BirthDate.Value.ToString("dd/MM/yyyy");
-            txtbFullName.Text = Database.CurrentAccount.Owner.FullName;
-            txtbTaxCode.Text = Database.CurrentAccount.Owner.TaxCode;
-        }
+        
     }
 }
