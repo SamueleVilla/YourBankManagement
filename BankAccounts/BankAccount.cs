@@ -1,5 +1,7 @@
 ﻿using BankAccounts.Models;
+using BankAccounts.Utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace BankAccounts
@@ -12,14 +14,22 @@ namespace BankAccounts
         private User _owner;
         private string _accountNumber;
         private decimal _balance;
+        private List<Transaction> allTransactions;
 
         // constructor 
         public BankAccount(User owner, decimal initialBalance)
         {
             _owner = owner;
             _balance = initialBalance;
-            accountNumberSeed += new Random((int)accountNumberSeed).Next((int)accountNumberSeed);
-            _accountNumber = accountNumberSeed.ToString();
+            _accountNumber = (accountNumberSeed += new Random().Next((int)accountNumberSeed)).ToString();
+
+            allTransactions = new List<Transaction>();
+            allTransactions.Add(new Transaction()
+            {
+                Amount = initialBalance,
+                Date = DateTime.Now,
+                Note = "Aggiunto importo iniziale"
+            });
         }
 
         // empty-constructor 
@@ -45,6 +55,12 @@ namespace BankAccounts
         public virtual string ToFileFormat()
         {
             return string.Format($"{Owner.ToFileFormat()};{AccountNumber};{Balance}");
+        }
+
+        public virtual void SaveData()
+        {
+            using StreamWriter sw = File.CreateText($@"{Database.AccountsPath}\{AccountNumber}.csv");
+            sw.WriteLine(ToFileFormat());
         }
 
         public override string ToString()

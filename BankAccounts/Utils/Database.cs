@@ -24,12 +24,6 @@ namespace BankAccounts.Utils
         public static string LastOpenedPath { get; set; } = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Temp");
 
-        // salva account sul file
-        public static void SetAccount(BankAccount bankAccount)
-        {
-            using StreamWriter sw = File.CreateText($@"{AccountsPath}\{bankAccount.AccountNumber}.csv");
-            sw.WriteLine(bankAccount.ToFileFormat());
-        }
 
         // carica account dal file
         public static BankAccount GetAccount(string path)

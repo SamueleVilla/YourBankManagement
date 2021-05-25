@@ -25,7 +25,7 @@ namespace WindowsUI
     public partial class MainWindow : Window
     {
         // istanza della finestra {openBankAccount}
-        private static OpenBankAccount openBankAccount = new OpenBankAccount();
+        private static OpenBankAccount openBankAccount;
 
         //costruttore della classe 
         public MainWindow()
@@ -36,8 +36,8 @@ namespace WindowsUI
         // evento click bottone 
         private void BtnOpenAccount_Click(object sender, RoutedEventArgs e)
         {
+            openBankAccount = new OpenBankAccount();
             openBankAccount.Show();
-            this.IsEnabled = false;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

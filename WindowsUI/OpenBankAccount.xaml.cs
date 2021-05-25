@@ -37,24 +37,39 @@ namespace WindowsUI
                 string taxCode = txtbTaxCode.Text;
                 DateTime? birthDate = datePicker.SelectedDate;
                 decimal initialBalance = decimal.Parse(txtbInitialBalance.Text);
-
-                // istanza dell utente corrente
                 var currentUser = new User(userName, birthDate, taxCode);
-                var currentAccount = new BankAccount(currentUser, initialBalance);
-                
+
+                if ((bool)bankAccount.IsChecked) 
+                {
+                    // tipo account conto corrente
+                    Database.CurrentAccount = new BankAccount(currentUser, initialBalance);
+                    Database.CurrentAccount.SaveData();
+                }
+                else if((bool)lineOfCreditCard.IsChecked)
+                {
+                    Database.CurrentAccount = new LineOfCreditCard(currentUser, initialBalance);
+                    Database.CurrentAccount.SaveData();
+                }
 
                 // salvataggio dei dati utente inseriti
-                Database.SetAccount(currentAccount);
                 MessageBox.Show("Dati salvati correnttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                Database.CurrentAccount = currentAccount;
-                mainWindow.Activate();                
-                this.Close();             
+                // inizio sequenza chiusa app
+                mainWindow.Close();
+                mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            
         }
     }
 }

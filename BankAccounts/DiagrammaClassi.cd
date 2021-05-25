@@ -3,10 +3,11 @@
   <Class Name="BankAccounts.BankAccount">
     <Position X="6.5" Y="3.5" Width="3" />
     <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ECAAgKCAAAAgAAAEAAgAAAAAAAgAAQAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ECAAgKCAAAAgABAEAAgAAAAQAAgAAQAAAAAAAAAAAAA=</HashCode>
       <FileName>BankAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -22,6 +23,34 @@
     <ShowAsAssociation>
       <Property Name="BankAccount" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="BankAccounts.Models.Transaction">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAACAAAAAAAABAABAAQEAAAA=</HashCode>
+      <FileName>Models\Transaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankAccounts.LineOfCreditCard">
+    <Position X="3.5" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LineOfCreditCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BankAccounts.Utils.Database">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACBAAgAEAAAAA=</HashCode>
+      <FileName>Utils\Database.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Struct Name="BankAccounts.Models.Name">
     <Position X="14" Y="0.5" Width="1.5" />

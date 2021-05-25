@@ -14,7 +14,8 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         Height="600" Width="450"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        Icon="/open.png"    
+        Icon="/open.png"  
+        Closed="Window_Closed"
         >
 
     <Grid>
@@ -60,7 +61,7 @@
                Margin="10,20,10,10"></Label>
 
             <!-- Radio Buttons -->
-            <RadioButton
+            <RadioButton x:Name="bankAccount"
             Margin="20,10,20,0"
             Content="Conto corrente" GroupName="AccountType"
             />
@@ -68,7 +69,7 @@
             Margin="20,10,20,0"
             Content="Conto di interesse" GroupName="AccountType"
             />
-            <RadioButton
+            <RadioButton x:Name="lineOfCreditCard"
             Margin="20,10,20,0"
             Content="Carta di credito" GroupName="AccountType"/>
             <RadioButton
