@@ -13,9 +13,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>           
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="auto"/>
@@ -84,7 +89,7 @@
                    />
 
         <ListView x:Name="ListBox" Grid.Column="4" Grid.Row="1" Grid.RowSpan="7" Background="{DynamicResource MaterialDesignDarkBackground}"
-                 BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="4">
+                 BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="9">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Amount}" Header="Amount [EUR]"/>
@@ -94,17 +99,23 @@
             </ListView.View>
         </ListView>
 
-        <Button x:Name="btnDeposit" Grid.Row="9" Grid.Column="5"
+        <Button x:Name="btnDeposit" Grid.Row="9" Grid.Column="10"
               Content="Deposita"
               materialDesign:ButtonAssist.CornerRadius="10"
               Cursor="Hand"
               Click="btnDeposit_Click"
             />
-        <Button x:Name="btnWithDrawal" Grid.Row="9" Grid.Column="7"
+        <Button x:Name="btnWithDrawal" Grid.Row="9" Grid.Column="12"
               Content="Preleva"
               materialDesign:ButtonAssist.CornerRadius="10"
               Cursor="Hand"
-              Click="btnDeposit_Click"
+              Click="btnWithDrawal_Click"
+            />
+        <Button x:Name="btnSimulateMonth" Grid.Row="9" Grid.Column="8"
+              Content="Simula Mese"
+              materialDesign:ButtonAssist.CornerRadius="10"
+              Cursor="Hand"
+              Click="btnSimulateMonth_Click"
             />
 
     </Grid>

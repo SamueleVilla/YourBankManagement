@@ -78,7 +78,17 @@ namespace WpfAppUI
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
+            new DepositWindow().Show();
+        }
 
+        private void btnSimulateMonth_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnWithDrawal_Click(object sender, RoutedEventArgs e)
+        {
+            new WithDrawalWindow().Show();
         }
     }
 }
