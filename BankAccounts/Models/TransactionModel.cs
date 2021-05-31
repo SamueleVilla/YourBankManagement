@@ -1,11 +1,10 @@
-﻿using Google.Cloud.Firestore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BankLibrary.Models
 {
-    [FirestoreData]
+   
     public class TransactionModel
     {
        
@@ -19,11 +18,11 @@ namespace BankLibrary.Models
 
         public TransactionModel() { }
 
-        [FirestoreProperty]
+        
         public decimal Amount { get; set; }
-        [FirestoreProperty]
+        
         public DateTime Date { get; set; }
-        [FirestoreProperty]
+        
         public string Note { get; set; }
 
 

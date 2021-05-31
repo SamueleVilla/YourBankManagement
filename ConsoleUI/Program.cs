@@ -5,8 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using BankLibrary;
 using System.Threading.Tasks;
-using Google.Cloud.Firestore;
-using Firebase.Auth;
+
 
 namespace ConsoleUI
 {

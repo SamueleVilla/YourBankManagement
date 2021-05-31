@@ -14,8 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Google.Cloud.Firestore;
-using DocumentReference = Google.Cloud.Firestore.DocumentReference;
 
 namespace WpfAppUI
 {
@@ -25,22 +23,13 @@ namespace WpfAppUI
     public partial class AuthWindow : Window
     {
         
-        private FirestoreDb db;
+      
 
         public AuthWindow()
         {
             InitializeComponent();
 
-            ConnectToFirebaseDatabase();
         }
-
-        private void ConnectToFirebaseDatabase()
-        {
-            var path = AppDomain.CurrentDomain.BaseDirectory + "bankmanagement.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
-            db = FirestoreDb.Create("bankmanagement-b4f21");
-        }
-
   
         private void btnOpenAccount_Click(object sender, RoutedEventArgs e)
         {

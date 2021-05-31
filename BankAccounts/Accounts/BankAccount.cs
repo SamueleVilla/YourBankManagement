@@ -1,13 +1,11 @@
 ﻿using BankLibrary.Models;
-using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace BankLibrary.Accounts
-{
-    [FirestoreData]
+{    
     public class BankAccount :  IBankAccount
     {
         private static int accountNumberSeed = 1234567890;
