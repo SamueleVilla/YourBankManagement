@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankLibrary", "BankAccounts
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{6D9FDBD5-EFA1-41DA-872A-C6B4B81941FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsUI", "WindowsUI\WindowsUI.csproj", "{A90D908A-EA82-4853-B785-4840F1447D8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppUI", "WpfAppUI\WpfAppUI.csproj", "{42D16C73-7B12-4DCD-9195-8825BC65A6DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{6D9FDBD5-EFA1-41DA-872A-C6B4B81941FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D9FDBD5-EFA1-41DA-872A-C6B4B81941FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D9FDBD5-EFA1-41DA-872A-C6B4B81941FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A90D908A-EA82-4853-B785-4840F1447D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A90D908A-EA82-4853-B785-4840F1447D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A90D908A-EA82-4853-B785-4840F1447D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A90D908A-EA82-4853-B785-4840F1447D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D16C73-7B12-4DCD-9195-8825BC65A6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D16C73-7B12-4DCD-9195-8825BC65A6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D16C73-7B12-4DCD-9195-8825BC65A6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D16C73-7B12-4DCD-9195-8825BC65A6DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

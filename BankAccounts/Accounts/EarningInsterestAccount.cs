@@ -9,15 +9,15 @@ using System.Text;
 
 namespace BankLibrary.Accounts
 {
-    public class InterestEarningAccount : BankAccount
+    public class EarningInsterestAccount : BankAccount
     {
-        public InterestEarningAccount(User owner, decimal initialBalance) : base(owner, initialBalance)
+        public EarningInsterestAccount(UserModel owner, decimal initialBalance) : base(owner, initialBalance)
         { }
 
         public override void PerformMonthEndTransactions()
         {
             // se il bilancio è maggiore di 500 applico l interesse
-            if(Balance >= 500m)
+            if (Balance >= 500m)
             {
                 var interest = Balance * 0.05m;
                 MakeDeposit(interest, DateTime.Now, "Depositato interesse mensile");

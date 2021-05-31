@@ -1,4 +1,5 @@
 ﻿using BankLibrary.Models;
+using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,34 +7,13 @@ using System.Text;
 
 namespace BankLibrary.Accounts
 {
-    public class BankAccount
+    [FirestoreData]
+    public class BankAccount :  IBankAccount
     {
-        private static readonly long accountNumberSeed = 1234567890;
-        private static readonly Random random = new Random((int)accountNumberSeed);
-
-        // class fields
-        private User _owner;
-        private string _accountNumber;
-        private readonly decimal _balance;
-
-        // constructor 
-        public BankAccount(User owner, decimal initialBalance)
-        {
-            _owner = owner;
-            _balance = initialBalance;
-            _accountNumber = (accountNumberSeed + random.Next()).ToString(); // generazione numero account univoco
-
-            MakeDeposit(initialBalance, DateTime.Now, "Importo iniziale");
-        }
-
-        // empty-constructor 
-        public BankAccount() { }
-
-      
-        // properties
-        public User Owner { get => _owner;  set => _owner = value; }
-
-        public string AccountNumber { get => _accountNumber; set => _accountNumber = value; }
+        private static int accountNumberSeed = 1234567890;
+        private static readonly Random random = new Random(accountNumberSeed);
+        // lista tracciante ogni transazione nell'account
+        public List<TransactionModel> AllTransaction { get; set; } = new List<TransactionModel>();
 
         public decimal Balance
         {
@@ -48,8 +28,17 @@ namespace BankLibrary.Accounts
             }
         }
 
-        // lista tracciante ogni transazione nell'account
-        public List<Transaction> AllTransaction { get; set; } = new List<Transaction>();
+        public UserModel Owner { get; set; }
+
+        public string AccountNumeber { get; set; }
+
+        // costruttore
+        public BankAccount(UserModel owner, decimal initialBalance)
+        {
+            Owner = owner;
+            AccountNumeber = (accountNumberSeed++).ToString();
+            MakeDeposit(initialBalance, DateTime.Now, "bilancio iniziale");
+        }
 
 
         // metodi deposito - prelievo //
@@ -60,7 +49,7 @@ namespace BankLibrary.Accounts
             {
                 throw new ArgumentOutOfRangeException(nameof(amount), "L'importo del deposito deve essere positivo!");
             }
-            var deposit = new Transaction(amount, DateTime.Now, note);
+            var deposit = new Models.TransactionModel(amount, DateTime.Now, note);
             AllTransaction.Add(deposit);
         }
 
@@ -74,7 +63,7 @@ namespace BankLibrary.Accounts
             {
                 throw new InvalidOperationException("Non ci sono fondi sufficienti per questo prelievo!");
             }
-            var withDrawal = new Transaction(-amount, date, note);
+            var withDrawal = new Models.TransactionModel(-amount, date, note);
             AllTransaction.Add(withDrawal);
         }
 
@@ -90,14 +79,13 @@ namespace BankLibrary.Accounts
             }
             return builder.ToString();
         }
-
-        // metodi virtuali //
+        
         public virtual void PerformMonthEndTransactions() { }
 
         public override string ToString()
         {
             return string.Format(
-                $"{AccountNumber}: {Owner} {Balance} EUR");
+                $"{AccountNumeber}: {Owner} {Balance} EUR");
         }
 
     }

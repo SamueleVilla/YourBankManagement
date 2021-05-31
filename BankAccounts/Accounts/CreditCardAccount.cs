@@ -16,9 +16,9 @@ namespace BankLibrary.Accounts
 {
     public class CreditCardAccount : BankAccount
     {
-        public CreditCardAccount(User owner, decimal initialBalance) : base(owner, initialBalance)
-        {
-        }
+        
+        public CreditCardAccount(UserModel owner,decimal initialBalance) : base(owner, initialBalance)
+        { }
 
         public override void PerformMonthEndTransactions()
         {
