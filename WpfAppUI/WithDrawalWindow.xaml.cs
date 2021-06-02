@@ -29,7 +29,7 @@ namespace WpfAppUI
 
         private void btnCancelWithDrawal_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

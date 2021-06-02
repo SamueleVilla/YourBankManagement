@@ -22,7 +22,14 @@ namespace BankLibrary.Models
 
         
         public string TaxCode { get; set; }
-      
+
+        public BankAccount BankAccount
+        {
+            get => default;
+            set
+            {
+            }
+        }
 
         public override string ToString()
         {

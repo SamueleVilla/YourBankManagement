@@ -29,7 +29,7 @@ namespace WpfAppUI
 
         private void btnCancelDeposit_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

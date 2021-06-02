@@ -149,5 +149,10 @@ namespace WpfAppUI
         {
             txtbMontlyDeposit.Visibility = Visibility.Hidden;
         }
+
+        private void btnHaveAccount_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
