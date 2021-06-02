@@ -12,7 +12,7 @@ namespace BankLibrary.Models
         public TransactionModel(decimal amount, DateTime date, string note)
         {
             Amount = amount;
-            this.Date = date.ToUniversalTime();
+            this.Date = date;
             Note = note;
         }
 

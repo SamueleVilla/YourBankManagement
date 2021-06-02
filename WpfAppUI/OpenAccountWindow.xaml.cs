@@ -154,5 +154,16 @@ namespace WpfAppUI
         {
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtAlradyHaveAccount_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+        }
     }
 }

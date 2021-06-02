@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,24 +24,14 @@ namespace WpfAppUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static List<TransactionModel> dislayAccountTransactions = null;
+
         public MainWindow()
         {
             InitializeComponent();
             SetUpComponets();
 
-            Database.CurrentAccount.MakeDeposit(20, DateTime.Now, "Vincita alle macchinette");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(50, DateTime.Now, "Mancia della prof");
-            Database.CurrentAccount.MakeDeposit(20, DateTime.Now, "Spesa giornaliera");
-
-            LoadAllTransactions();
-
-
+            RefreshData();
         }
 
         private void SetUpComponets()
@@ -49,31 +40,20 @@ namespace WpfAppUI
             txtDispayAccount.Text = Database.GetAccountType(Database.CurrentAccount.GetType());
             txtDisplayTaxCode.Text = Database.CurrentAccount.Owner.TaxCode;
             txtDisplayDate.Text = Database.CurrentAccount.Owner.BithDate.ToShortDateString();
-            txtDisplayID.Text = Database.CurrentAccount.AccountNumeber;
         }
 
-        private void LoadAllTransactions()
+        private void RefreshData()
         {
-            List<TransactionModel> allTrasactions = Database.CurrentAccount.AllTransaction;
-            ListBox.ItemsSource = allTrasactions;
+            dislayAccountTransactions = Database.CurrentAccount.AllTransaction;
+            ListBox.ItemsSource = dislayAccountTransactions;
+            ICollectionView wiew = CollectionViewSource.GetDefaultView(ListBox.ItemsSource);
+            wiew.Refresh();
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {   
-            var accountspath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement","Accounts");
-            if (!Directory.Exists(accountspath))
-                Directory.CreateDirectory(accountspath);
-
-            var filePath = System.IO.Path.Combine(accountspath, $"{Database.CurrentAccount.AccountNumeber}.txt");
             
-            using (FileStream fs = new FileStream(filePath,FileMode.Append))
-            {
-                StreamWriter sw = new StreamWriter(fs);
-                sw.WriteLine($"{Database.CurrentAccount.AccountNumeber} - {Database.CurrentAccount.Owner.ToString()}");
-                sw.Close();
-            }
-
-            MessageBox.Show($"Dati salvati sul file!\n\n{filePath}","Messaggio",MessageBoxButton.OK,MessageBoxImage.Information);
         }
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
@@ -88,7 +68,14 @@ namespace WpfAppUI
 
         private void btnWithDrawal_Click(object sender, RoutedEventArgs e)
         {
-            new WithDrawalWindow().Show();
+            WithDrawalWindow drawalWindow = new WithDrawalWindow(this);
+            drawalWindow.Show();
+            this.IsEnabled = false;
+        }
+
+        private void Window_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            RefreshData();
         }
     }
 }

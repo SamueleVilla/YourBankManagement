@@ -8,15 +8,17 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
         Title="MainWindow" Height="600" Width="800"
-        Closed="Window_Closed">
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed"
+       IsEnabledChanged="Window_IsEnabledChanged"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
@@ -35,8 +37,12 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+           
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
@@ -79,17 +85,8 @@
                    Margin="0,10,0,0"
                    />
 
-        <TextBlock Grid.Row="5" Grid.Column="1"
-                   Margin="0,10,0,0"
-                   Text="ID account: "/>
-        <TextBlock x:Name="txtDisplayID" Grid.Column="2" Grid.Row="5"
-                   Text="none" 
-                   Margin="0,10,0,0"
-
-                   />
-
-        <ListView x:Name="ListBox" Grid.Column="4" Grid.Row="1" Grid.RowSpan="7" Background="{DynamicResource MaterialDesignDarkBackground}"
-                 BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="9">
+        <ListView x:Name="ListBox" Grid.Column="4" Grid.Row="1" Grid.RowSpan="9" Background="{DynamicResource MaterialDesignDarkBackground}"
+                 BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="8">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Amount}" Header="Amount [EUR]"/>
@@ -99,24 +96,58 @@
             </ListView.View>
         </ListView>
 
-        <Button x:Name="btnDeposit" Grid.Row="9" Grid.Column="10"
+        <Button x:Name="btnDeposit" Grid.Row="11" Grid.Column="9"
               Content="Deposita"
-              materialDesign:ButtonAssist.CornerRadius="10"
+              materialDesign:ButtonAssist.CornerRadius="11"
               Cursor="Hand"
               Click="btnDeposit_Click"
             />
-        <Button x:Name="btnWithDrawal" Grid.Row="9" Grid.Column="12"
+        <Button x:Name="btnWithDrawal" Grid.Row="11" Grid.Column="11"
               Content="Preleva"
               materialDesign:ButtonAssist.CornerRadius="10"
               Cursor="Hand"
               Click="btnWithDrawal_Click"
             />
-        <Button x:Name="btnSimulateMonth" Grid.Row="9" Grid.Column="8"
+        <Button x:Name="btnSimulateMonth" Grid.Row="11" Grid.Column="7"
               Content="Simula Mese"
               materialDesign:ButtonAssist.CornerRadius="10"
               Cursor="Hand"
               Click="btnSimulateMonth_Click"
             />
+
+        <TextBlock Grid.Row="6" Grid.Column="1" Margin="0,150,0,0"
+                   Text="Bilancio Corrente: "
+                   FontWeight="SemiBold"
+                   FontSize="18"
+                  />
+
+        <TextBlock Grid.Row="7" Grid.Column="1" Margin="0,20,0,0"
+                   Text="Totale Ritiri: "
+                   FontWeight="SemiBold"
+                   FontSize="18"
+                  />
+
+        <TextBlock Grid.Row="8" Grid.Column="1" Margin="0,20,0,0"
+                   Text="Totale Depositi: "
+                   FontWeight="SemiBold"
+                   FontSize="18"
+                  />
+
+        <TextBlock x:Name="txtbCurrentBalance" Grid.Row="6" Grid.Column="2"
+                   Text="none" Margin="0,150,0,0"
+                   FontSize="18" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"                  
+                   />
+        <TextBlock x:Name="txtbToatDrawals" Grid.Row="7" Grid.Column="2"
+                   Text="none"                  
+                   FontSize="18" Margin="0,20,0,0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"                                                   
+                   />
+        <TextBlock x:Name="txtbTotalDeposit" Grid.Row="8" Grid.Column="2"
+                   Text="none"
+                   FontSize="18" Margin="0,20,0,0"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

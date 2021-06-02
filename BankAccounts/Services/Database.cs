@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BankLibrary.Services
 {
-    public class Database
+    public static class Database
     {
         public static IBankAccount CurrentAccount { get; set; } = null;
 

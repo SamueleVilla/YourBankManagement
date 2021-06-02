@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="WithDrawalWindow" Height="350" Width="300"
+        Title="WithDrawalWindow" Height="300" Width="300"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
@@ -18,20 +18,20 @@
                      materialDesign:HintAssist.IsFloating="True"
                      TextWrapping="Wrap" 
                      Margin="10,10,10,0" FontSize="20"/>
-            <RichTextBox x:Name="txtNote"
-                         Height="106" Margin="10,40,10,0"
-                         materialDesign:HintAssist.Hint="Annota Transazione"
-                         materialDesign:HintAssist.IsFloating="True" FontSize="20">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run />
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+
+            <TextBox x:Name="txtNote" 
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Visible"
+                     materialDesign:HintAssist.Hint="Annota transazione"
+                     FontSize="20"
+                     Margin="10,20,10,0" 
+                     
+                />
+
             <Button x:Name="btnConfirmWithDrawal"
                     Content="Effettua Prelievo"
                     materialDesign:ButtonAssist.CornerRadius="10" 
-                    Margin="20,40,20,0"
+                    Margin="20,80,20,0"
                     Cursor="Hand"
                     Click="btnConfirmWithDrawal_Click"/>
             <Button x:Name="btnCancelWithDrawal"
