@@ -14,6 +14,8 @@ namespace BankLibrary.Accounts
         public EarningInsterestAccount(UserModel owner, decimal initialBalance) : base(owner, initialBalance)
         { }
 
+        public EarningInsterestAccount() { }
+
         public override void PerformMonthEndTransactions()
         {
             // se il bilancio è maggiore di 500 applico l interesse

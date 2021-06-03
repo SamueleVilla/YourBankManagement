@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfAppUI
+namespace WpfAppUI.Windows
 {
     /// <summary>
     /// Logica di interazione per TransactionWindow.xaml

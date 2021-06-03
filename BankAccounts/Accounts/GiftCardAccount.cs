@@ -12,15 +12,17 @@ namespace BankLibrary.Accounts
     {
         public decimal MontlyDeposit { get; set; }
 
-        public GiftCardAccount(UserModel owner, decimal initialBalance,decimal  monthlyDeposit = 0) : base(owner, initialBalance)
+        public GiftCardAccount(UserModel owner, decimal initialBalance, decimal monthlyDeposit = 0) : base(owner, initialBalance)
         {
             MontlyDeposit = monthlyDeposit;
         }
 
+        public GiftCardAccount() { }
+
         public override void PerformMonthEndTransactions()
-        
+
         {
-            if(MontlyDeposit != 0)
+            if (MontlyDeposit != 0)
             {
                 MakeDeposit(MontlyDeposit, DateTime.Now, "Aggiunto deposito mensile");
             }

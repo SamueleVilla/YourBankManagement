@@ -4,16 +4,11 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>coin.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="bankmanagement.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="bankmanagement.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BankAccounts\BankLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="styles\" />
   </ItemGroup>
 
 </Project>

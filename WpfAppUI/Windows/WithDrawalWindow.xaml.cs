@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static BankLibrary.Services.Database;
 
-namespace WpfAppUI
+namespace WpfAppUI.Windows
 {
     /// <summary>
     /// Logica di interazione per WithDrawalWindow.xaml

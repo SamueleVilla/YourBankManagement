@@ -1,30 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BankLibrary.Models
 {
-   
+   /// <summary>
+   /// Questa classe descrrive il modello della transazione
+   /// </summary>
     public class TransactionModel
     {
-       
-
+        /// <summary>
+        /// Costruttore della classe 
+        /// </summary>
+        /// <param name="amount"> importo </param>
+        /// <param name="date"> data importo </param>
+        /// <param name="note"> nota dell'importo </param>
         public TransactionModel(decimal amount, DateTime date, string note)
         {
             Amount = amount;
-            this.Date = date;
+            Date = date;
             Note = note;
         }
 
-        public TransactionModel() { }
-
-        
+        /// <summary>
+        /// Proprietà Importo della Trasazione
+        /// </summary>
         public decimal Amount { get; set; }
         
+        /// <summary>
+        /// Proprietà Data della Transazione
+        /// </summary>
         public DateTime Date { get; set; }
         
+        /// <summary>
+        /// Proprietà Nota della Tranasazione
+        /// </summary>
         public string Note { get; set; }
 
-
+        /// <summary>
+        /// Proprietà Data in formato Stringa della Transazione
+        /// </summary>
+        public string DateString { get => Date.ToString(); }
     }
 }

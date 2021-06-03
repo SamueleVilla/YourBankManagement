@@ -17,7 +17,8 @@ using System.Windows.Shapes;
 using BankLibrary;
 using BankLibrary.Models;
 using BankLibrary.Services;
-namespace WpfAppUI
+
+namespace WpfAppUI.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -31,20 +32,21 @@ namespace WpfAppUI
             InitializeComponent();
             SetUpComponets();
 
+            txtbDate.Text = DateTime.Now.ToString();
             RefreshData();
         }
 
         private void SetUpComponets()
         {
             txtDisplayFullName.Text = Database.CurrentAccount.Owner.FullName;
-            txtDispayAccount.Text = Database.GetAccountType(Database.CurrentAccount.GetType());
+            txtDispayAccount.Text = Database.DisplayAccountType(Database.CurrentAccount.GetType());
             txtDisplayTaxCode.Text = Database.CurrentAccount.Owner.TaxCode;
             txtDisplayDate.Text = Database.CurrentAccount.Owner.BithDate.ToShortDateString();
         }
 
         private void RefreshData()
         {
-            dislayAccountTransactions = Database.CurrentAccount.AllTransaction;
+            dislayAccountTransactions = Database.CurrentAccount.AllTransactions;
             ListBox.ItemsSource = dislayAccountTransactions;
             ICollectionView wiew = CollectionViewSource.GetDefaultView(ListBox.ItemsSource);
             wiew.Refresh();

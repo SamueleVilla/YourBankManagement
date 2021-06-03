@@ -1,24 +1,21 @@
 ﻿using BankLibrary.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
 namespace BankLibrary.Accounts
 {    
     public class BankAccount :  IBankAccount
     {
-        private static int accountNumberSeed = 1234567890;
-        private static readonly Random random = new Random(accountNumberSeed);
-        // lista tracciante ogni transazione nell'account
-        public List<TransactionModel> AllTransaction { get; set; } = new List<TransactionModel>();
+       
+        public List<TransactionModel> AllTransactions { get; set; } = new List<TransactionModel>(); 
 
         public decimal Balance
         {
             get
             {
                 decimal balance = 0;
-                foreach (var transaction in AllTransaction)
+                foreach (var transaction in AllTransactions)
                 {
                     balance += transaction.Amount;
                 }
@@ -28,18 +25,21 @@ namespace BankLibrary.Accounts
 
         public UserModel Owner { get; set; }
 
-        public string AccountNumeber { get; set; }
+        public decimal MonthlyDeposit { set; get; } = 0;
 
-        // costruttore
+        /// <summary>
+        /// Costruttore della classe BankAccount
+        /// </summary>
+        /// <param name="owner"> Utente Proprietario </param>
+        /// <param name="initialBalance"> Bilancio iniziale </param>
         public BankAccount(UserModel owner, decimal initialBalance)
         {
             Owner = owner;
-            AccountNumeber = (accountNumberSeed++).ToString();
             MakeDeposit(initialBalance, DateTime.Now, "bilancio iniziale");
         }
 
-
-        // metodi deposito - prelievo //
+        public BankAccount () { }
+     
         public void MakeDeposit(decimal amount, DateTime date, string note)
         {
             // l'importo non può essere minore o uguale a 0
@@ -48,7 +48,7 @@ namespace BankLibrary.Accounts
                 throw new ArgumentOutOfRangeException(nameof(amount), "L'importo del deposito deve essere positivo!");
             }
             var deposit = new Models.TransactionModel(amount, DateTime.Now, note);
-            AllTransaction.Add(deposit);
+            AllTransactions.Add(deposit);
         }
 
         public void MakeWithDrawal(decimal amount, DateTime date, string note)
@@ -62,7 +62,7 @@ namespace BankLibrary.Accounts
                 throw new InvalidOperationException("Non ci sono fondi sufficienti per questo prelievo!");
             }
             var withDrawal = new Models.TransactionModel(-amount, date, note);
-            AllTransaction.Add(withDrawal);
+            AllTransactions.Add(withDrawal);
         }
 
         public string GetAccountHistory()
@@ -70,7 +70,7 @@ namespace BankLibrary.Accounts
             var builder = new StringBuilder();
             decimal balance = 0;
 
-            foreach (var transaction in AllTransaction)
+            foreach (var transaction in AllTransactions)
             {
                 balance += transaction.Amount;
                 builder.AppendLine($"{transaction.Amount}\t{transaction.Date}\t{transaction.Note}");
@@ -80,10 +80,14 @@ namespace BankLibrary.Accounts
         
         public virtual void PerformMonthEndTransactions() { }
 
+        /// <summary>
+        /// Questo metodo restituisce una rappresentazione in stringa dell'oggetto BankAccount
+        /// </summary>
+        /// <returns> Il metodo ritorna una stringa </returns>
         public override string ToString()
         {
             return string.Format(
-                $"{AccountNumeber}: {Owner} {Balance} EUR");
+                $"{Owner} {Balance} EUR");
         }
 
     }

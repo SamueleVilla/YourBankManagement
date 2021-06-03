@@ -21,12 +21,8 @@ namespace ConsoleUI
                IBankAccount bankAccount = new CreditCardAccount(user, 500);
                IBankAccount account = new EarningInsterestAccount(user, 500);
 
-                Console.WriteLine(bankAccount.ToString());
-                Console.WriteLine(bankAccount.GetAccountHistory());
-
-                Console.WriteLine();
-                Console.WriteLine(account.ToString());
-                Console.WriteLine(account.GetAccountHistory());
+                Console.WriteLine(user.ToString());
+               Console.WriteLine(bankAccount.GetAccountHistory());
                 
 
             }
