@@ -5,25 +5,36 @@ using System.IO;
 using System.Collections.Generic;
 using BankLibrary;
 using System.Threading.Tasks;
-
+using BankLibrary.Services;
 
 namespace ConsoleUI
 {
     class Program
     {
        
+
         static void Main(string[] args)
         {
             try
             {
-               UserModel user = new UserModel { FirstName = "Sam", LastName = "Villa", BithDate = DateTime.Parse("30/12/2003"), TaxCode = "VLLSML03T3089N" };
-               UserModel userB = new UserModel { FirstName = "Matt", LastName = "GRC", BithDate = DateTime.Parse("30/12/2003"), TaxCode = "VLLSML03T3089N" };
-               IBankAccount bankAccount = new CreditCardAccount(user, 500);
-               IBankAccount account = new EarningInsterestAccount(user, 500);
+                UserModel user = new UserModel { FirstName = "Matteo", LastName = "Greco", BithDate = DateTime.Parse("27/01/2003"), TaxCode = "GRCMTT03DT896N" };
+                IBankAccount bankAccount = new GiftCardAccount(user, 200.50m, 60);
 
-                Console.WriteLine(user.ToString());
-               Console.WriteLine(bankAccount.GetAccountHistory());
-                
+                //bankAccount.MakeDeposit(10.5m, DateTime.Now, "vinto un bambino");
+                //bankAccount.MakeDeposit(10.5m, DateTime.Now, "vinto un bambino");
+                //bankAccount.MakeDeposit(12.52m, DateTime.Now, "perso un bambino");
+                //bankAccount.MakeDeposit(12.78m, DateTime.Now, "perso un bambino");
+
+                //Console.WriteLine(bankAccount.GetAccountHistory());
+                //Database.DataBaseService.SaveAccountData(bankAccount);
+                //Console.WriteLine("\nDati Salvati correctly");
+
+                var current = Database.DataBaseService.LoadAccountData("GRCMTT03DT896N");
+                current.MakeDeposit(11.56m, DateTime.Now, "deposito dopo caricamento");
+                current.MakeWithDrawal(22.56m, DateTime.Now, "prelievo dopo caricamento");
+
+                Database.DataBaseService.SaveAccountData(current);
+                Console.WriteLine(current.GetAccountHistory());
 
             }
             catch (ArgumentOutOfRangeException e)

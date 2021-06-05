@@ -19,6 +19,10 @@ namespace BankLibrary
         /// </summary>
         decimal Balance { get; }
 
+        decimal TotalDeposits { get; }
+
+        decimal TotalDrawals { get; }
+
         /// <summary>
         /// Proprietà che tiene traccia di tutte le transazioni effettuate dall'account
         /// </summary>

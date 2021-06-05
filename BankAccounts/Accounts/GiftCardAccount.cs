@@ -9,12 +9,11 @@ using System.Text;
 namespace BankLibrary.Accounts
 {
     public class GiftCardAccount : BankAccount
-    {
-        public decimal MontlyDeposit { get; set; }
+    {        
 
         public GiftCardAccount(UserModel owner, decimal initialBalance, decimal monthlyDeposit = 0) : base(owner, initialBalance)
         {
-            MontlyDeposit = monthlyDeposit;
+            MonthlyDeposit = monthlyDeposit;
         }
 
         public GiftCardAccount() { }
@@ -22,9 +21,9 @@ namespace BankLibrary.Accounts
         public override void PerformMonthEndTransactions()
 
         {
-            if (MontlyDeposit != 0)
+            if (MonthlyDeposit != 0)
             {
-                MakeDeposit(MontlyDeposit, DateTime.Now, "Aggiunto deposito mensile");
+                MakeDeposit(MonthlyDeposit, DateTime.Now, "Aggiunto deposito mensile");
             }
         }
     }

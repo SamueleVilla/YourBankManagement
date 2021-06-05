@@ -60,8 +60,9 @@ namespace WpfAppUI.Windows
             decimal amount = 0;
             if(ValidateInputs(out amount))
             {
-                string note = txtNote.Text;
+                string note = txtNote.Text.Trim();
                 CurrentAccount.MakeWithDrawal(amount, DateTime.Now, note);
+                DataBaseService.SaveAccountData(CurrentAccount);
                 MessageBox.Show("Prelievo effettuato correttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
                 mainRef.IsEnabled = true;
                 this.Close();
@@ -71,6 +72,7 @@ namespace WpfAppUI.Windows
         private void btnCancelWithDrawal_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            mainRef.IsEnabled = true;
         }
     }
 }

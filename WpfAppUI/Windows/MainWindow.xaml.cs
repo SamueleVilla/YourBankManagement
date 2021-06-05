@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using BankLibrary;
 using BankLibrary.Models;
 using BankLibrary.Services;
+using System.Windows.Threading;
 
 namespace WpfAppUI.Windows
 {
@@ -25,15 +26,30 @@ namespace WpfAppUI.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+
         private static List<TransactionModel> dislayAccountTransactions = null;
 
         public MainWindow()
         {
+            TimerStart();
             InitializeComponent();
-            SetUpComponets();
-
-            txtbDate.Text = DateTime.Now.ToString();
+            SetUpComponets();     
             RefreshData();
+        }
+
+        private void TimerStart()
+        {
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            // aggiornamento dinamico della data corrente
+            txtbCurrentDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+
         }
 
         private void SetUpComponets()
@@ -46,6 +62,9 @@ namespace WpfAppUI.Windows
 
         private void RefreshData()
         {
+            txtbToatDrawals.Text = Database.CurrentAccount.TotalDrawals.ToString();
+            txtbTotalDeposit.Text = Database.CurrentAccount.TotalDeposits.ToString();
+            txtbCurrentBalance.Text = Database.CurrentAccount.Balance.ToString();
             dislayAccountTransactions = Database.CurrentAccount.AllTransactions;
             ListBox.ItemsSource = dislayAccountTransactions;
             ICollectionView wiew = CollectionViewSource.GetDefaultView(ListBox.ItemsSource);
@@ -60,7 +79,9 @@ namespace WpfAppUI.Windows
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
-            new DepositWindow().Show();
+            DepositWindow depositWindow = new DepositWindow(this);
+            depositWindow.Show();
+            this.IsEnabled = false;
         }
 
         private void btnSimulateMonth_Click(object sender, RoutedEventArgs e)

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BankAccounts\BankLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="styles\" />
-  </ItemGroup>
-
 </Project>

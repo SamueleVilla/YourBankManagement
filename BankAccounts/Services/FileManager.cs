@@ -10,46 +10,46 @@ namespace BankLibrary.Services
 {
     public  class FileManager
     {
-        private static string accountsPath  = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Accounts");
+        public string AccountsPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Accounts");
 
         public void SaveAccountData(IBankAccount currentAccount)
         {
-            if (!Directory.Exists(accountsPath))
+            if (!Directory.Exists(AccountsPath))
             {
-                Directory.CreateDirectory(accountsPath);
+                Directory.CreateDirectory(AccountsPath);
             }
 
-            string filePath = $@"{accountsPath}\{currentAccount.Owner.TaxCode}.csv";
+            string filePath = $@"{AccountsPath}\{currentAccount.Owner.TaxCode}.csv";
             List<string> lines = new List<string>();
 
             // header - informazioni utente ex // Mario,Rossi,10/02/2000,MRORSS76D2023A,BankAccount
-            lines.Add($"{currentAccount.Owner.FirstName}," +
-                $"{currentAccount.Owner.LastName}," +
-                $"{currentAccount.Owner.BithDate}," +
-                $"{currentAccount.Owner.TaxCode}," +
-                $"{currentAccount.GetType().Name}" +
+            lines.Add($"{currentAccount.Owner.FirstName};" +
+                $"{currentAccount.Owner.LastName};" +
+                $"{currentAccount.Owner.BithDate};" +
+                $"{currentAccount.Owner.TaxCode};" +
+                $"{currentAccount.GetType().Name};" +
                 $"{currentAccount.MonthlyDeposit}");
 
             // aggiunta di tutte le transazioni dell'account
             foreach (TransactionModel t in currentAccount.AllTransactions)
             {
-                lines.Add($"{t.Amount},{t.Date},{t.Note}");
+                lines.Add($"{t.Amount};{t.Date};{t.Note}");
             }
 
             // scrittura di tutte le righe sul file
             File.WriteAllLines(filePath, lines);
         }
 
-        public static IBankAccount LoadAccountData(string taxCode)
+        public IBankAccount LoadAccountData(string taxCode)
         {
-            string filePath = $@"{accountsPath}\{taxCode}.csv";
+            string filePath = $@"{AccountsPath}\{taxCode}.csv";
 
             if (File.Exists(filePath))
             {
                 List<string> lines = File.ReadAllLines(filePath).ToList();
 
                 // header - informazioni account
-                string[] cols = lines[0].Split(',');
+                string[] cols = lines[0].Split(';');
                 UserModel owner = new UserModel { FirstName = cols[0], LastName = cols[1], BithDate = DateTime.Parse(cols[2]), TaxCode = cols[3] };
                 AccountType type = (AccountType)Enum.Parse(typeof(AccountType), cols[4]);
                 lines.RemoveAt(0);  //rimozione header file
@@ -57,7 +57,7 @@ namespace BankLibrary.Services
                 List<TransactionModel> allTransactions = new List<TransactionModel>();
                 foreach (string line in lines)
                 {
-                    string[] tCols = line.Split(',');
+                    string[] tCols = line.Split(';');
                     allTransactions.Add(new TransactionModel(decimal.Parse(tCols[0]), DateTime.Parse(tCols[1]), tCols[2]));
                 }
 
@@ -70,7 +70,7 @@ namespace BankLibrary.Services
                         return new CreditCardAccount { Owner = owner, AllTransactions = allTransactions };
 
                     case AccountType.GiftCardAccount:
-                        return new GiftCardAccount { Owner = owner, AllTransactions = allTransactions, MontlyDeposit = decimal.Parse(cols[5])};
+                        return new GiftCardAccount { Owner = owner, AllTransactions = allTransactions, MonthlyDeposit = decimal.Parse(cols[5])};
 
                     case AccountType.EarningInterestAccount:
                         return new EarningInsterestAccount { Owner = owner, AllTransactions = allTransactions};

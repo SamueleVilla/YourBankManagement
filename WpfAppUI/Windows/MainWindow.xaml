@@ -84,21 +84,20 @@
                    Margin="0,10,0,0"
                    />
 
-        <ListView x:Name="ListBox" Grid.Column="6" Grid.RowSpan="9"
-                 Grid.ColumnSpan="6"  Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Importo [EUR]" Width="150" DisplayMemberBinding="{Binding Amount}"/>
-                    <GridViewColumn Header="Data Operazione" DisplayMemberBinding="{Binding DateString}"/>
-                    <GridViewColumn Header="Nota" Width="150" DisplayMemberBinding="{Binding Note}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <ListView>
-            
-        </ListView>
-
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="6" Grid.RowSpan="9"
+                Grid.ColumnSpan="6"  Grid.Row="1">
+            <ListView x:Name="ListBox" 
+                 >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Importo [EUR]" Width="150" DisplayMemberBinding="{Binding Amount}"/>
+                        <GridViewColumn Header="Data Operazione" DisplayMemberBinding="{Binding DateString}"/>
+                        <GridViewColumn Header="Nota" Width="150" DisplayMemberBinding="{Binding Note}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+        
         <Button x:Name="btnDeposit" Grid.Row="11" Grid.Column="9"
               Content="Deposita"
               materialDesign:ButtonAssist.CornerRadius="11"
@@ -112,7 +111,7 @@
               Click="btnWithDrawal_Click"
             />
         <Button x:Name="btnSimulateMonth" Grid.Row="11" Grid.Column="7"
-              Content="Simula Mese"
+              Content="Simula Operazione Fine Mese"
               materialDesign:ButtonAssist.CornerRadius="10"
               Cursor="Hand"
               Click="btnSimulateMonth_Click"
@@ -128,7 +127,7 @@
 
         <TextBlock Grid.Row="7" Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="Totale Ritiri: "
+                   Text="Totale Prelievi: "
                    FontWeight="SemiBold"
                    FontSize="18"
                    Background="Yellow"                   
@@ -142,36 +141,105 @@
                    Background="Yellow"                   
                   />
 
-        <TextBox x:Name="txtbCurrentBalance" Grid.Row="6" Grid.Column="2"
-                   Text="none" Margin="0,150,0,0"
-                   FontSize="18"  
-                   VerticalAlignment="Center"    
+        <StackPanel Grid.Row="6" Grid.Column="2" Margin="0,150,0,0" Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="txtbCurrentBalance" Grid.Column="0"
+                   Text="none" 
+                   FontSize="18"                     
                    TextAlignment="Center"
                    IsReadOnly="True"
-                   
+                   HorizontalAlignment="Center"
+                   Margin="20,0,20,0"
+                         
                    />
-        <TextBox x:Name="txtbToatDrawals" Grid.Row="7" Grid.Column="2"
+                <materialDesign:PackIcon Grid.Column="1"
+                       Kind="Euro" 
+                       Height="20"
+                       Width="20"
+                       HorizontalAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="txtbToatDrawals"  Grid.Column="0"
                    Text="none"                  
-                   FontSize="18" 
-                   VerticalAlignment="Center"   
+                   FontSize="18"                    VerticalAlignment="Center" 
                    TextAlignment="Center"
-                   IsReadOnly="True"
-                   />
-        <TextBox x:Name="txtbTotalDeposit" Grid.Row="8" Grid.Column="2"
+                   IsReadOnly="True"  Margin="20,0,20,0"
+                         />
+
+                <materialDesign:PackIcon Grid.Column="1"
+                    Kind="Euro" Width="20" Height="20" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                                         
+                                         />
+            </Grid>
+
+        </StackPanel>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="txtbTotalDeposit" Grid.Column="0"
                    Text="none"
                    FontSize="18"
                    VerticalAlignment="Center"
                    TextAlignment="Center"
                    IsReadOnly="True"
+                   Margin="20,0,20,0"
                  />
 
-        <TextBlock x:Name="txtbDate" Grid.Row="11" Grid.Column="1"
-                   Text="none"                         
-                   TextAlignment="Center"
-                   Background="LightSlateGray"
-                   HorizontalAlignment="Stretch"
-                   VerticalAlignment="Center"
-                   />
+                <materialDesign:PackIcon Grid.Column="1"
+                    Kind="Euro" Width="20" Height="20" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                                         
+                                         />
+            </Grid>
+        </StackPanel>
 
+
+        <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.ColumnSpan="2" 
+                    Grid.Column="1" >
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:PackIcon Grid.Column="0"
+                    Kind="CalendarClockOutline" Width="20" Height="20" 
+                    VerticalAlignment="Center"
+                                         Margin="0,0,20,0"/>
+
+                <TextBlock x:Name="txtbCurrentDate" Grid.Column="1"
+                           Text="none"
+                           VerticalAlignment="Center"
+                           FontSize="15"/>
+            </Grid>
+
+        </StackPanel>
+        
     </Grid>
 </Window>

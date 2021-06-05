@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace BankLibrary.Accounts
 {    
@@ -14,18 +15,31 @@ namespace BankLibrary.Accounts
         {
             get
             {
-                decimal balance = 0;
-                foreach (var transaction in AllTransactions)
-                {
-                    balance += transaction.Amount;
-                }
-                return balance;
+                return AllTransactions.Sum(t => t.Amount);
             }
         }
 
         public UserModel Owner { get; set; }
 
         public decimal MonthlyDeposit { set; get; } = 0;
+
+        public decimal TotalDeposits
+        {
+            get
+            {
+                var deposits = AllTransactions.Where(t => t.Amount > 0).ToList();
+                return deposits.Sum(t => t.Amount);
+            }
+        }
+
+        public decimal TotalDrawals
+        {
+            get
+            {
+                var drawals = AllTransactions.Where(t => t.Amount < 0).ToList();
+                return drawals.Sum(t => t.Amount);
+            }
+        }
 
         /// <summary>
         /// Costruttore della classe BankAccount
@@ -87,7 +101,7 @@ namespace BankLibrary.Accounts
         public override string ToString()
         {
             return string.Format(
-                $"{Owner} {Balance} EUR");
+                $"{Owner.TaxCode}: {Owner} {Balance} EUR");
         }
 
     }
