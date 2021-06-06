@@ -71,14 +71,37 @@ namespace BankLibrary.Accounts
             {
                 throw new ArgumentOutOfRangeException(nameof(amount), "L'importo del prelievo deve essere positivo!");
             }
-            if(Balance - amount < 0)
-            {
-                throw new InvalidOperationException("Non ci sono fondi sufficienti per questo prelievo!");
-            }
+            var overDrawfTransaction = CheckWithDrawalLimit(Balance - amount < 0);
             var withDrawal = new Models.TransactionModel(-amount, date, note);
             AllTransactions.Add(withDrawal);
+
+            if(overDrawfTransaction != null)
+            {
+                AllTransactions.Add(overDrawfTransaction);
+            }
         }
 
+        /// <summary>
+        /// Questo metodo verifica se l'importo della transazione è negativo
+        /// </summary>
+        /// <param name="isOverdrawn"> condizione di bilancio scoperto </param>
+        /// <returns> Il metodo restiuisce una TransactionModel #Nullable </returns>
+        protected virtual TransactionModel? CheckWithDrawalLimit(bool isOverdrawn)
+        {
+            if (isOverdrawn)
+            {
+                throw new InvalidOperationException("Non ci sono fondi sufficienti per questo prelievo!");               
+            }
+            else
+            {
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Questo metodo restituisce una rappresentazione in stringa di utte le trasazioni effettuate dall'account
+        /// </summary>
+        /// <returns></returns>
         public string GetAccountHistory()
         {
             var builder = new StringBuilder();
@@ -92,6 +115,9 @@ namespace BankLibrary.Accounts
             return builder.ToString();
         }
         
+        /// <summary>
+        /// Questo metodo esegue un operazione di fine mese suul'account
+        /// </summary>
         public virtual void PerformMonthEndTransactions() { }
 
         /// <summary>

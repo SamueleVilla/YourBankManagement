@@ -16,6 +16,9 @@ namespace BankLibrary.Accounts
 
         public EarningInsterestAccount() { }
 
+        /// <summary>
+        /// Questo metodo effettua il deposito mensile per la classe EarningInterestAccount
+        /// </summary>
         public override void PerformMonthEndTransactions()
         {
             // se il bilancio è maggiore di 500 applico l interesse

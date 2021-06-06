@@ -19,8 +19,14 @@ namespace BankLibrary
         /// </summary>
         decimal Balance { get; }
 
+        /// <summary>
+        /// Proprietà TotaleDepositi dell'account
+        /// </summary>
         decimal TotalDeposits { get; }
 
+        /// <summary>
+        /// Proprietà Totale Prelievi dell'account
+        /// </summary>
         decimal TotalDrawals { get; }
 
         /// <summary>
@@ -28,6 +34,9 @@ namespace BankLibrary
         /// </summary>
         List<TransactionModel> AllTransactions { get; set; }
 
+        /// <summary>
+        /// Proprietà Deposito Mesile dell'account
+        /// </summary>
         decimal MonthlyDeposit { get; set; }
 
         /// <summary>

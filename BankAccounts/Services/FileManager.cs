@@ -10,8 +10,15 @@ namespace BankLibrary.Services
 {
     public  class FileManager
     {
+        /// <summary>
+        /// Prorietà percorso dove si trovano i file relativi agli account
+        /// </summary>
         public string AccountsPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BankManagement", "Accounts");
 
+        /// <summary>
+        /// Questo metodo salva tutti i dati relativi all'account su file
+        /// </summary>
+        /// <param name="currentAccount"> Account corrente </param>
         public void SaveAccountData(IBankAccount currentAccount)
         {
             if (!Directory.Exists(AccountsPath))
@@ -40,6 +47,11 @@ namespace BankLibrary.Services
             File.WriteAllLines(filePath, lines);
         }
 
+        /// <summary>
+        /// Questo metodo carica tutti dati relativi all'account dal file
+        /// </summary>
+        /// <param name="taxCode"> Codice fiscale [id] </param>
+        /// <returns> Il metodo ritorna l'istanza dell'account </returns>
         public IBankAccount LoadAccountData(string taxCode)
         {
             string filePath = $@"{AccountsPath}\{taxCode}.csv";

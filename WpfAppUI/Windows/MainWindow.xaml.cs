@@ -38,6 +38,7 @@ namespace WpfAppUI.Windows
             RefreshData();
         }
 
+
         private void TimerStart()
         {
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
@@ -47,9 +48,8 @@ namespace WpfAppUI.Windows
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            // aggiornamento dinamico della data corrente
+            //aggiornamento dinamico della data corrente
             txtbCurrentDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
-
         }
 
         private void SetUpComponets()
@@ -86,7 +86,17 @@ namespace WpfAppUI.Windows
 
         private void btnSimulateMonth_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                Database.CurrentAccount.PerformMonthEndTransactions();
+                Database.DataBaseService.SaveAccountData(Database.CurrentAccount);
+                MessageBox.Show("Oprazione di fine messe effettuata!","Avviso",MessageBoxButton.OK,MessageBoxImage.Warning);
+                RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Avviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void btnWithDrawal_Click(object sender, RoutedEventArgs e)
@@ -99,6 +109,22 @@ namespace WpfAppUI.Windows
         private void Window_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             RefreshData();
+        }
+
+        private void btnExitAccount_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Database.DataBaseService.SaveAccountData(Database.CurrentAccount);
+                Database.CurrentAccount = null;
+                CreateAccountWindow createAccount = new CreateAccountWindow();
+                createAccount.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Avviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

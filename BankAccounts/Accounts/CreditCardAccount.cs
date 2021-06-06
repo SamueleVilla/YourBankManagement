@@ -22,13 +22,34 @@ namespace BankLibrary.Accounts
 
         public CreditCardAccount() { }
 
+        /// <summary>
+        /// Questo metodo effettua il prelievo mensile per la classe CreditCardAccount
+        /// </summary>
         public override void PerformMonthEndTransactions()
         {
             if (Balance < 0)
             {
                 // negazione del saldo corrente per aver un prelievo positivo
                 var interest = -Balance * 0.07m;
-                MakeWithDrawal(interest, DateTime.Now, "Prelievo Interesse mesile");
+                MakeWithDrawal(Math.Round(interest,2), DateTime.Now, "Prelievo Interesse mesile");
+            }
+        }
+
+        /// <summary>
+        /// Questo metodo restituisce una tassa di transazione qual'ora il prelievo fosse maggiore del bilancio corrente
+        /// </summary>
+        /// <param name="isOverdrawn"> Condizione bilancio scoperto </param>
+        /// <returns> IL metodo restiuisce una TransactionModel #Nullable </returns>
+        protected override TransactionModel? CheckWithDrawalLimit(bool isOverdrawn)
+        {
+            if (isOverdrawn)
+            {
+                //applicare tassa previlevo per bilancio scoperto
+                return new TransactionModel(-20, DateTime.Now, "Applicata tassa per fondi insufficienti");
+            }
+            else
+            {
+                return default;
             }
         }
     }

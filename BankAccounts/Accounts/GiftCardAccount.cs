@@ -18,6 +18,9 @@ namespace BankLibrary.Accounts
 
         public GiftCardAccount() { }
 
+        /// <summary>
+        /// Questo metodo effettua il deposito mensile per la callse GifCardAccount
+        /// </summary>
         public override void PerformMonthEndTransactions()
 
         {

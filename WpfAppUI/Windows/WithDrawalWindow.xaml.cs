@@ -60,13 +60,28 @@ namespace WpfAppUI.Windows
             decimal amount = 0;
             if(ValidateInputs(out amount))
             {
-                string note = txtNote.Text.Trim();
-                CurrentAccount.MakeWithDrawal(amount, DateTime.Now, note);
-                DataBaseService.SaveAccountData(CurrentAccount);
-                MessageBox.Show("Prelievo effettuato correttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
-                mainRef.IsEnabled = true;
-                this.Close();
-            }
+                try
+                {
+                    string note = txtNote.Text.Trim();
+                    CurrentAccount.MakeWithDrawal(amount, DateTime.Now, note);
+                    DataBaseService.SaveAccountData(CurrentAccount);
+                    MessageBox.Show("Prelievo effettuato correttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
+                    mainRef.IsEnabled = true;
+                    this.Close();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Avviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Avviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Avviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }        
         }
 
         private void btnCancelWithDrawal_Click(object sender, RoutedEventArgs e)
