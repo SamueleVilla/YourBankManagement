@@ -65,7 +65,7 @@ namespace BankLibrary.Services
                     return new GiftCardAccount(owner, initialBalance, monthlyDeposit);
 
                 case AccountType.EarningInterestAccount:
-                    return new EarningInsterestAccount(owner, initialBalance);
+                    return new EarningInterestAccount(owner, initialBalance);
 
                 default:
                     throw new Exception("Impossibile creazione account");

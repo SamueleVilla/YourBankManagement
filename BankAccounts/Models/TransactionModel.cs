@@ -39,5 +39,13 @@ namespace BankLibrary.Models
         /// Proprietà Data in formato Stringa della Transazione
         /// </summary>
         public string DateString { get => Date.ToString(); }
+
+        public Accounts.BankAccount BankAccount
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

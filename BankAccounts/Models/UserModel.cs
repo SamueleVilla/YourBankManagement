@@ -35,6 +35,14 @@ namespace BankLibrary.Models
         /// </summary>
         public string TaxCode { get; set; }
 
+        public BankAccount BankAccount
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
 
         /// <summary>
         /// Questo metodo restituisce una rappresentazione in formato stringa dell oggetto UserModel

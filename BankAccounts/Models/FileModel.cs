@@ -18,5 +18,13 @@ namespace BankLibrary.Models
         /// Proprietà Esstensione del file
         /// </summary>
         public string Extension { get; set; }
+
+        public Services.FileManager FileManager
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

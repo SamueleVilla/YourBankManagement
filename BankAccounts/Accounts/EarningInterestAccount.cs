@@ -9,12 +9,12 @@ using System.Text;
 
 namespace BankLibrary.Accounts
 {
-    public class EarningInsterestAccount : BankAccount
+    public class EarningInterestAccount : BankAccount
     {
-        public EarningInsterestAccount(UserModel owner, decimal initialBalance) : base(owner, initialBalance)
+        public EarningInterestAccount(UserModel owner, decimal initialBalance) : base(owner, initialBalance)
         { }
 
-        public EarningInsterestAccount() { }
+        public EarningInterestAccount() { }
 
         /// <summary>
         /// Questo metodo effettua il deposito mensile per la classe EarningInterestAccount
