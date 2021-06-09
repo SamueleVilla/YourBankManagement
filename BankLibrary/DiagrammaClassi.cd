@@ -64,11 +64,11 @@
       <FileName>Accounts\CreditCardAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BankLibrary.Accounts.EarningInsterestAccount">
+  <Class Name="BankLibrary.Accounts.EarningInterestAccount">
     <Position X="7.5" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Accounts\EarningInsterestAccount.cs</FileName>
+      <FileName>Accounts\EarningInterestAccount.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BankLibrary.Accounts.GiftCardAccount">
@@ -89,7 +89,7 @@
   <Class Name="BankLibrary.Services.Database">
     <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAIAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAA=</HashCode>
       <FileName>Services\Database.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -113,12 +113,9 @@
   <Interface Name="BankLibrary.IBankAccount">
     <Position X="3.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABACCABAAAAAAAACgQAAAAAAAAAQAEAAAAAQAAgAA=</HashCode>
+      <HashCode>AAABACCABAAAAAAAACgQAAAAAAAAAQAEAAAAAQAAAAA=</HashCode>
       <FileName>Accounts\IBankAccount.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="BankAccount" />
-    </ShowAsAssociation>
   </Interface>
   <Enum Name="BankLibrary.AccountType">
     <Position X="15.25" Y="2" Width="1.5" />
