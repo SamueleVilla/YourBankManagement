@@ -8,7 +8,6 @@
         Background="{DynamicResource MaterialDesignPaper}"
         Title="Il tuo conto bancario" Height="600" Width="900"
         WindowStartupLocation="CenterScreen"
-        Closed="Window_Closed"
         IsEnabledChanged="Window_IsEnabledChanged"
         >
     <Grid>

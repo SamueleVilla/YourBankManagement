@@ -64,7 +64,7 @@ namespace WpfAppUI.Windows
                 {
                     string note = txtNote.Text.Trim();
                     CurrentAccount.MakeWithDrawal(amount, DateTime.Now, note);
-                    DataBaseService.SaveAccountData(CurrentAccount);
+                    DatabaseServices.SaveAccountData(CurrentAccount);
                     MessageBox.Show("Prelievo effettuato correttamente!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
                     mainRef.IsEnabled = true;
                     this.Close();

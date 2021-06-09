@@ -52,10 +52,37 @@ namespace WpfAppUI.Windows
             txtbCurrentDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
         }
 
+        /// <summary>
+        ///  Questo metodo restituisce il nome del tipo di account instanziato
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string DisplayAccountType(Type type)
+        {
+            AccountType result = (AccountType)Enum.Parse(typeof(AccountType), type.Name);
+            switch (result)
+            {
+                case AccountType.BankAccount:
+                    return "Conto Corrente";
+
+                case AccountType.CreditCardAccount:
+                    return "Carta di Credito";
+
+                case AccountType.EarningInterestAccount:
+                    return "Conto con Interesse";
+
+                case AccountType.GiftCardAccount:
+                    return "Carta Regalo";
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), "Tipo account non definito");
+            }
+        }
+
         private void SetUpComponets()
         {
             txtDisplayFullName.Text = Database.CurrentAccount.Owner.FullName;
-            txtDispayAccount.Text = Database.DisplayAccountType(Database.CurrentAccount.GetType());
+            txtDispayAccount.Text = DisplayAccountType(Database.CurrentAccount.GetType());
             txtDisplayTaxCode.Text = Database.CurrentAccount.Owner.TaxCode;
             txtDisplayDate.Text = Database.CurrentAccount.Owner.BithDate.ToShortDateString();
         }
@@ -72,11 +99,6 @@ namespace WpfAppUI.Windows
             
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {   
-            
-        }
-
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
             DepositWindow depositWindow = new DepositWindow(this);
@@ -89,7 +111,7 @@ namespace WpfAppUI.Windows
             try
             {
                 Database.CurrentAccount.PerformMonthEndTransactions();
-                Database.DataBaseService.SaveAccountData(Database.CurrentAccount);
+                Database.DatabaseServices.SaveAccountData(Database.CurrentAccount);
                 MessageBox.Show("Oprazione di fine messe effettuata!","Avviso",MessageBoxButton.OK,MessageBoxImage.Warning);
                 RefreshData();
             }
@@ -115,7 +137,7 @@ namespace WpfAppUI.Windows
         {
             try
             {
-                Database.DataBaseService.SaveAccountData(Database.CurrentAccount);
+                Database.DatabaseServices.SaveAccountData(Database.CurrentAccount);
                 Database.CurrentAccount = null;
                 CreateAccountWindow createAccount = new CreateAccountWindow();
                 createAccount.Show();

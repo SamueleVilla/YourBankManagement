@@ -88,8 +88,6 @@ namespace WpfAppUI.Windows
                     MessageBox.Show("Deposito mensile non valido!", "Errore", MessageBoxButton.OK, MessageBoxImage.Error);
                     result = false;
                 }
-                else
-                    montlyDeposit = 0;
             }
             else
                 montlyDeposit = 0;
@@ -139,6 +137,35 @@ namespace WpfAppUI.Windows
         }
 
         /// <summary>
+        /// Questo metodo istanzia l'account
+        /// </summary>
+        /// <param name="type"> Tipo di account selezionato </param>
+        /// <param name="owner"> Proprietario dell'account</param>
+        /// <param name="initialBalance"> Bilancio Iniziale</param>
+        /// <param name="monthlyDeposit"> Deposito mensile </param>
+        /// <returns> IL metodo ritorna l'istanza dell'account </returns>
+        public static IBankAccount AccountInstantiation(AccountType type, UserModel owner, decimal initialBalance, decimal monthlyDeposit)
+        {
+            switch (type)
+            {
+                case AccountType.BankAccount:
+                    return new BankAccount(owner, initialBalance);
+
+                case AccountType.CreditCardAccount:
+                    return new CreditCardAccount(owner, initialBalance);
+
+                case AccountType.GiftCardAccount:
+                    return new GiftCardAccount(owner, initialBalance, monthlyDeposit);
+
+                case AccountType.EarningInterestAccount:
+                    return new EarningInterestAccount(owner, initialBalance);
+
+                default:
+                    throw new Exception("Impossibile creazione account");
+            }
+        }
+
+        /// <summary>
         /// Gestione evento Click del bottone "Apri Conto Bancario"
         /// </summary>
         private void btnOpenAccount_Click(object sender, RoutedEventArgs e)
@@ -162,7 +189,7 @@ namespace WpfAppUI.Windows
 
                     // istanza dell'account bancario con il relativo tipo
                     CurrentAccount = AccountInstantiation(accountType, owner, initialBalance, monthlyDeposit);
-                    DataBaseService.SaveAccountData(CurrentAccount);
+                    DatabaseServices.SaveAccountData(CurrentAccount);
                     MessageBox.Show($"Benvenuto, {CurrentAccount.Owner.FullName }!","Messaggio",MessageBoxButton.OK,MessageBoxImage.Information);
 
                     MainWindow mainWindow = new MainWindow();

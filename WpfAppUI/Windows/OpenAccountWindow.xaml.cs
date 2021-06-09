@@ -36,7 +36,7 @@ namespace WpfAppUI.Windows
         public OpenAccountWindow()
         {
             InitializeComponent();
-            cbSelectAccount.ItemsSource = LoadAllAccountsFiles(Database.DataBaseService.AccountsPath);
+            cbSelectAccount.ItemsSource = LoadAllAccountsFiles(Database.DatabaseServices.AccountsPath);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace WpfAppUI.Windows
             try
             {
                 FileModel fileModel = (FileModel)cbSelectAccount.SelectedItem;
-                Database.CurrentAccount = Database.DataBaseService.LoadAccountData(fileModel.FileName);
+                Database.CurrentAccount = Database.DatabaseServices.LoadAccountData(fileModel.FileName);
                 MessageBox.Show($"Benvenuto, {Database.CurrentAccount.Owner.FullName}!", "Messaggio", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 MainWindow main = new MainWindow();

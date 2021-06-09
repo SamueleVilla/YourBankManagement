@@ -29,11 +29,11 @@ namespace ConsoleUI
                 //Database.DataBaseService.SaveAccountData(bankAccount);
                 //Console.WriteLine("\nDati Salvati correctly");
 
-                var current = Database.DataBaseService.LoadAccountData("GRCMTT03DT896N");
+                var current = Database.DatabaseServices.LoadAccountData("GRCMTT03DT896N");
                 current.MakeDeposit(11.56m, DateTime.Now, "deposito dopo caricamento");
                 current.MakeWithDrawal(22.56m, DateTime.Now, "prelievo dopo caricamento");
 
-                Database.DataBaseService.SaveAccountData(current);
+                Database.DatabaseServices.SaveAccountData(current);
                 Console.WriteLine(current.GetAccountHistory());
 
             }
